@@ -11,14 +11,13 @@ echo.
 for /f "tokens=*" %%i in ('powershell -NoProfile -command "Get-AppxPackage -Name Microsoft.MinecraftUWP | Select-Object -ExpandProperty InstallLocation"') do set "minecraftlocation=%%i"
 set "oreui=%minecraftlocation%\data\gui\dist\hbui\index-890d0.js"
 
-goto skip_khan
 if exist "index-890d0.js.bak" (
+    echo Restoring old backup
     rename "index-890d0.js.bak" "index-890d0.js"
     "%ProgramFiles(x86)%\IObit\IObit Unlocker\IObitUnlocker" /advanced /delete "%oreui%"
     "%ProgramFiles(x86)%\IObit\IObit Unlocker\IObitUnlocker" /advanced /move "%cd%\index-890d0.js" "%oreui:~0,-15%"
     exit
 )
-:skip_khan
 
 
 if not exist "%oreui%" (
